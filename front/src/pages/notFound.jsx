@@ -11,7 +11,7 @@ const NotFound = () => {
     return(
         <div>
             <h1>Página não encontrada.</h1>
-            <a onClick={() => handleBack()}>Ir para página inicial.</a>
+            <button onClick={() => handleBack()}>Ir para página inicial.</button>
         </div>
     )
 };
