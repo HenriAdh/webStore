@@ -1,0 +1,42 @@
+POST http://localhost:3001/createUser
+Content-Type: application/json
+Allow: POST
+
+{
+    "name": "Henrique Adhmann Pires",
+    "login": "henrique.adhmann",
+    "email": "henriadhmann123@gmail.com",
+    "password": "#Rique123"
+}
+
+###
+
+POST http://localhost:3001/login
+Content-Type: application/json
+Allow: POST
+
+{
+    "login": "henrique.adhmann",
+    "password": "#Rique123"
+}
+
+###
+
+GET http://localhost:3001/profile
+
+###
+
+PUT http://localhost:5432/users/a294bd99-b0ff-4371-b86f-197a4ea25ddf
+Content-Type: application/json
+
+{
+    "name": "Henrique Adhmann Pires",
+    "username": "henrique.pires",
+    "email": "henrique.pires@gmail.com",
+    "pass": "123456",
+    "adm": false
+}
+
+###
+
+DELETE http://localhost:3333/users/5d99f908-6d2b-40f0-9595-3cb6b7d8e043

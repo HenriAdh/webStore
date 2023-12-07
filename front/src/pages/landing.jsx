@@ -1,14 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import css from './css/landing.module.css';
 import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
+import InputText from "../components/input/input";
+import Buttom from "../components/buttom/buttom";
+import axios from '../api/axios'
 
 const Landing = () => {
+    const [login, setLogin] = useState('');
+    const [pass, setPass] = useState('');
     const navigate = useNavigate();
-    const handleAccess = (e) => {
+
+    const handleAccess = async (e) => {
         e.preventDefault();
-        navigate('/home');
+
+        try{
+            const res = await axios.post('/login',
+                JSON.stringify({login: login, password: pass}),
+                {
+                    headers: {
+                        "Content-Type": 'application/json',
+                        // 'Access-Control-Allow-Origin': 'http://localhost:3000'
+                    },
+                }
+            )
+            if(res?.data?.user) navigate('/home')
+            else alert('Erro ao veriifcar credenciais.');
+        } catch (error) {
+            alert(error?.response?.data?.message)
+        }
+    }
+
+    const handleForgot = (e) => {
+        e.preventDefault();
+        navigate('/forgotpassword');
+    }
+
+    const handleRegister = (e) => {
+        e.preventDefault();
+        navigate('/register');
     }
 
     return (
@@ -23,60 +53,41 @@ const Landing = () => {
                     <div
                         className={css.loginField}
                     >
-                        <label
-                            htmlFor='edtLogin'
-                        ><FontAwesomeIcon icon={faUser} /> Login:  </label>
-                        <input
-                            placeholder="usuario.login"
-                            type="text"
-                            id="edtLogin"
-                            name="login"
-                            required
-                            className={css.input}
+                        <InputText 
+                            id={'edtLogin'}
+                            value={login}
+                            placeholder="Login"
+                            onChange={(e)=>setLogin(e.target.value)}
+                            icon={faUser}
                         />
-                    </div>
-                    <div
-                        className={css.passField}
-                    >
-                        <label
-                            htmlFor="edtPass"
-                        ><FontAwesomeIcon icon={faLock} /> Senha: </label>
-                        <input
-                            type="password"
-                            placeholder="U$esrP4ss"
-                            id="edtPass"
-                            name="pass"
-                            required
-                            className={css.input}
+                        <br/>
+                        <InputText 
+                            id={'edtPass'}
+                            type={'password'}
+                            value={pass}
+                            placeholder="Senha"
+                            onChange={(e)=>setPass(e.target.value)}
+                            icon={faLock}
                         />
+                        <br/>
                     </div>
-                    <div
-                        className={css.buttomField}
-                    >
-                        <input
-                            type="submit"
-                            value={'Acessar'}
-                            className={css.buttom}
-                        />
-                    </div>
+                    <Buttom 
+                        id={'btnAcessar'}
+                        value={'Entrar'}
+                    />
                 </form>
-            </div>
-            <div
-                className={css.linkField}
-            >
                 <div
                     className={css.divLink}
                 >
                     <span
                         className={css.link}
-                        >Esqueci minha senha</span>
-                    </div>
-                <div
-                    className={css.divLink}
-                >
-                    <span
-                        className={css.link}
+                        onClick={(e) => handleRegister(e)}
                     >Registrar</span>
+                    <br/>
+                    <span
+                        className={css.link}
+                        onClick={(e) => handleForgot(e)}
+                    >Esqueci minha senha</span>
                 </div>
             </div>
         </div>
