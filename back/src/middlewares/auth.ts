@@ -16,7 +16,7 @@ export const getProfile = async (req: Request, res: Response, next: NextFunction
     const { id } = jwt.verify(token, process.env.JWT_PASS ?? '') as JwtPayLoad
 
     const user = await userRepository.findOneBy({ id });
-    if (!user) throw new BadRequestError('Login ou senha inválidos.');
+    if (!user) throw new BadRequestError('Sessão inspirada.');
 
     const { password: _, ...userLogged} = user;
 

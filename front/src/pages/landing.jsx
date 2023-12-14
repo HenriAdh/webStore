@@ -24,7 +24,10 @@ const Landing = () => {
                     },
                 }
             )
-            if(res?.data?.user) navigate('/home')
+            if(res?.data?.user) {
+                document.cookie = 'JWT ' + res.data.token;
+                return navigate('/home')
+            }
             else alert('Erro ao veriifcar credenciais.');
         } catch (error) {
             alert(error?.response?.data?.message)

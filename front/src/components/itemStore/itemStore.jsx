@@ -1,8 +1,9 @@
 import React from "react";
+import css from './itemStore.module.css'
 
 const ItemStore = ({ id, img, title, desc, valor, onclick }) => {
     return (
-        <div key={id} style={{ border: '1px solid black', height: '300px', width: '225px' }} onClick={(e) => {
+        <div key={id} className={css.item} onClick={(e) => {
             e.preventDefault();
             onclick(id);
         }}>

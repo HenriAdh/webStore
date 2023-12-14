@@ -5,10 +5,11 @@ const Links = ({links=[]}) => {
         <div style={{
                 display: 'flex',
                 justifyContent: 'space-evenly',
-                flexWrap: 'nowrap'
+                flexWrap: 'nowrap',
+                padding: '10px'
         }}>
             {links.map((link, index) => (
-                <p key={index}>{link}</p>
+                <a key={index} href={'home/' + link.link}>{link.label}</a>
             ))}
         </div>
     )
